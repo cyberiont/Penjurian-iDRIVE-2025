@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Confirm Jury Details</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f0f0f0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 30px;
+    }
+    #details {
+      background: white;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+      margin-bottom: 20px;
+    }
+    button {
+      padding: 10px 20px;
+      font-size: 16px;
+      background-color: #28a745;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #218838;
+    }
+  </style>
+</head>
+<body>
+  <h2>Confirm Your Details</h2>
+  <div id="details"></div>
+  <button onclick="proceed()">Proceed</button>
+
+  <script>
+    const data = JSON.parse(sessionStorage.getItem('juryData'));
+    if (data) {
+      document.getElementById('details').innerHTML = `
+        <p><strong>Jury ID:</strong> ${data.id}</p>
+        <p><strong>Name:</strong> ${data.name}</p>
+        <p><strong>Phone:</strong> ${data.phoneNo}</p>
+        <p><strong>Email:</strong> ${data.email}</p>
+        <p><strong>Status:</strong> ${data.status}</p>
+      `;
+    } else {
+      document.getElementById('details').innerText = "No data found. Please go back and try again.";
+    }
+
+    function proceed() {
+      if (data && data.juryLink) {
+        window.location.href = data.juryLink;
+      }
+    }
+  </script>
+</body>
+</html>
