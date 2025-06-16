@@ -51,12 +51,15 @@
       border-radius: 50%;
       box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
     }
-    .logo-heading h2 {
-      margin: 0;
-      font-size: 22px;
-      color: #007bff;
-      font-weight: 600;
-    }
+	.logo-heading .logo {
+	  width: 60px;
+	  height: 60px;
+	  margin: 0;
+	  object-fit: contain; /* 🔁 ensures full image is shown */
+	  border-radius: 50%;
+	  background-color: white; /* optional: helps with transparency */
+	  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+	}
     p.description {
       margin-bottom: 15px;
       color: #333;
