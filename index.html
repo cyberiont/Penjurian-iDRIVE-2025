@@ -131,7 +131,7 @@
       }
       status.textContent = "Please wait... validating your data.";
       try {
-        const response = await fetch('https://script.google.com/macros/s/AKfycbwkBnY9UbW6HXypsuf7SqGDuPdH13esp6JJJtTxnW2cEivHc1m7lyMzi5TVUTz5DuwH7w/exec?id=' + encodeURIComponent(id));
+        const response = await fetch('https://script.google.com/macros/s/AKfycbxZrcVzDo_IltDwTPmc1m40zivfqmiODZHjgebBe9IUkXHceYxb9MhMd5lfB-84zjD-0A/exec?id=' + encodeURIComponent(id));
         const data = await response.json();
         if (data.error) {
           status.textContent = "";
