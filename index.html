@@ -20,6 +20,28 @@
     }
     input, button {
       font-size: 16px;
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Jury ID Checker</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f0f0f0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      margin: 0;
+    }
+    h2 {
+      margin-bottom: 20px;
+    }
+    input, button {
+      font-size: 16px;
       padding: 10px;
       margin: 5px;
     }
@@ -32,44 +54,37 @@
     button:hover {
       background-color: #0056b3;
     }
-    #status {
-      margin-top: 10px;
-      font-size: 14px;
-      color: gray;
-    }
   </style>
-  <link rel="prefetch" href="confirmation.html">
 </head>
 <body>
   <h2>Enter Your Mobile Phone Number</h2>
-<input type="text" id="phoneNo" placeholder="e.g. 60137597865" autofocus>
-<button onclick="checkPhoneNo()">Submit</button>
+  <input type="text" id="phoneNo" placeholder="e.g. 60137597865" autofocus>
+  <button onclick="checkPhoneNo()">Submit</button>
 
-<script>
-  async function checkPhoneNo() {
-    const id = document.getElementById('phoneNo').value.trim();
-
-    if (!id) {
-      alert("Please enter your phone number.");
-      return;
-    }
-
-    try {
-      const response = await fetch('https://script.google.com/macros/s/....../exec?id=' + encodeURIComponent(id));
-      const data = await response.json();
-
-      if (data.error) {
-        alert("Mobile Phone Number not found.");
-      } else {
-        sessionStorage.setItem('juryData', JSON.stringify(data));
-        window.location.href = 'confirmation.html';
+  <script>
+    async function checkPhoneNo() {
+      const id = document.getElementById('phoneNo').value.trim();
+      if (!id) {
+        alert("Please enter your phone number.");
+        return;
       }
-    } catch (err) {
-      console.error(err);
-      alert("An error occurred. Please try again.");
-    }
-  }
-</script>
 
+      try {
+        const response = await fetch('https://script.google.com/macros/s/AKfycbxZrcVzDo_IltDwTPmc1m40zivfqmiODZHjgebBe9IUkXHceYxb9MhMd5lfB-84zjD-0A/exec?id=' + encodeURIComponent(id));
+        const data = await response.json();
+
+        if (data.error) {
+          alert("Mobile Phone Number not found.");
+        } else {
+          sessionStorage.setItem('juryData', JSON.stringify(data));
+          window.location.href = 'confirmation.html';
+        }
+      } catch (err) {
+        console.error(err);
+        alert("An error occurred. Please try again.");
+      }
+    }
+  </script>
 </body>
 </html>
+
