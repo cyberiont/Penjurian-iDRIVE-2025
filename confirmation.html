@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -64,24 +63,42 @@
   </div>
 
   <script>
-    const data = JSON.parse(sessionStorage.getItem('juryData'));
-    if (data) {
-      document.getElementById('details').innerHTML = `
-        <p><strong>Jury ID:</strong> ${data.id}</p>
-        <p><strong>Name:</strong> ${data.name}</p>
-        <p><strong>Phone:</strong> ${data.phoneNo}</p>
-        <p><strong>Email:</strong> ${data.email}</p>
-        <p><strong>Status:</strong> ${data.status}</p>
-      `;
-    } else {
+    async function loadCSV() {
+      const response = await fetch('jury_data.csv');
+      const text = await response.text();
+      const lines = text.split('\n');
+      const headers = lines[0].split(',');
+      const phone = sessionStorage.getItem('phone');
+
+      for (let i = 1; i < lines.length; i++) {
+        const row = lines[i].split(',');
+        if (row[2] === phone) {
+          const data = {
+            name: row[1],
+            phoneNo: row[2],
+            email: row[3],
+            juryLink: row[9]
+          };
+          document.getElementById('details').innerHTML = `
+            <p><strong>Name:</strong> ${data.name}</p>
+            <p><strong>Phone:</strong> ${data.phoneNo}</p>
+            <p><strong>Email:</strong> ${data.email}</p>          `;
+          sessionStorage.setItem('juryData', JSON.stringify(data));
+          return;
+        }
+      }
+
       document.getElementById('details').innerText = "No data found. Please go back and try again.";
     }
 
     function proceed() {
+      const data = JSON.parse(sessionStorage.getItem('juryData'));
       if (data && data.juryLink) {
         window.location.href = data.juryLink;
       }
     }
+
+    loadCSV();
   </script>
 </body>
 </html>

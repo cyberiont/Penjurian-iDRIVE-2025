@@ -4,7 +4,6 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>iDRIVE 2025 Jury Panel Access</title>
-  <link rel="prefetch" href="confirmation.html" />
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet" />
   <style>
     body {
@@ -48,18 +47,11 @@
       width: 60px;
       height: 60px;
       margin: 0;
+      object-fit: contain;
       border-radius: 50%;
+      background-color: white;
       box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
     }
-	.logo-heading .logo {
-	  width: 60px;
-	  height: 60px;
-	  margin: 0;
-	  object-fit: contain; /* 🔁 ensures full image is shown */
-	  border-radius: 50%;
-	  background-color: white; /* optional: helps with transparency */
-	  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
-	}
     p.description {
       margin-bottom: 15px;
       color: #333;
@@ -116,37 +108,23 @@
       <h2>iDRIVE 2025 Jury Login</h2>
     </div>
     <p class="description">Please enter your mobile phone number to proceed</p>
-	<div class="center-form">
-    <input type="text" id="phoneNo" placeholder="e.g. 60137597865" autofocus />
-    <button onclick="checkPhoneNo()">Submit</button>
-	</div>
+    <div class="center-form">
+      <input type="text" id="phoneNo" placeholder="e.g. 60137597865" autofocus />
+      <button onclick="submitPhoneNo()">Submit</button>
+    </div>
     <p id="status"></p>
   </div>
   <footer>© iDRIVE 2025 | Organized by UTHM</footer>
   <script>
-    async function checkPhoneNo() {
+    function submitPhoneNo() {
       const id = document.getElementById('phoneNo').value.trim();
       const status = document.getElementById('status');
       if (!id) {
         alert("Please enter your phone number.");
         return;
       }
-      status.textContent = "Please wait... validating your data.";
-      try {
-        const response = await fetch('https://script.google.com/macros/s/AKfycby_Kwve0Wzw2jdZyiFs2HCr4SvRU4w5Rz3mtf6mZsul7jr6vTo2ELBXNTYX-DQ97yYs5w/exec?id=' + encodeURIComponent(id));
-        const data = await response.json();
-        if (data.error) {
-          status.textContent = "";
-          alert("Phone number not found. Please check and try again.");
-        } else {
-          sessionStorage.setItem('juryData', JSON.stringify(data));
-          window.location.href = 'confirmation.html';
-        }
-      } catch (err) {
-        status.textContent = "";
-        console.error(err);
-        alert("An error occurred. Please try again later.");
-      }
+      sessionStorage.setItem('phone', id);
+      window.location.href = 'confirmation.html';
     }
   </script>
 </body>
