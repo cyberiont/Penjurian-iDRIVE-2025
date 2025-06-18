@@ -94,7 +94,7 @@
     function proceed() {
       const data = JSON.parse(sessionStorage.getItem('juryData'));
       if (data && data.juryLink) {
-        window.location.href = data.juryLink;
+        window.open(data.juryLink, '_blank');
       }
     }
 
